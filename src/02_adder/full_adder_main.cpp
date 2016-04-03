@@ -33,6 +33,8 @@ int sc_main(int argc, char* argv[]) {
 	m1.m_cout(t_cout);
 
 	sc_start(100, SC_NS);
+
+	sc_close_vcd_trace_file(tf);
 	// sc_int<1024 is invalid only supported value is 64 bit only need to test this
 	//cout << sizeof(sc_int<1024>);
 
