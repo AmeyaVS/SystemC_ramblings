@@ -1,0 +1,8 @@
+http://www.accellera.org/images/downloads/standards/systemc/systemc-2.3.1.tgz
+http://www.accellera.org/images/downloads/standards/systemc/systemc_regressions-2.3.1.tgz
+http://www.accellera.org/images/downloads/standards/systemc/SystemC_AMS_2_0_LRM.pdf
+http://www.accellera.org/images/downloads/standards/systemc/scv-2.0.0.tgz
+
+#SystemC tutorials for VHDL Engineers
+#http://www.ht-lab.com/howto/vh2sc_tut/vh2sc_tut.html
+#http://www.ht-lab.com/howto/vh2sc_tut/vh2sc_tut3.html
