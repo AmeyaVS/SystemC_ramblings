@@ -8,18 +8,21 @@ OBJS_CXX= $(SRCS_CXX:.cpp=.o)
 
 PROJECT= 03_firtest
 
+SC_TRACE_FILE= fir
+
 all: $(PROJECT)
 	./$(PROJECT)
 	@make cmp_result
+	vcd_hier_manip $(SC_TRACE_FILE).vcd
 
 $(PROJECT): $(OBJS_CXX)
 	$(CXX) $^ -L. -L$(SYSTEMC)/lib-$(TARGET_ARCH) -o $@ -lsystemc
 
 .cpp.o:
-	$(CXX) $(CXX_FLAGS) $< -o $@
+	$(CXX) $(CXX_FLAGS) -DSC_TRACE_FILE=\"$(SC_TRACE_FILE)\" $< -o $@
 
 clean:
-	$(RM) $(OBJS_CXX) $(PROJECT) *.dat
+	$(RM) $(OBJS_CXX) $(PROJECT) *.dat *.vcd
 
 # The cmp_result target compares the simulation results with the
 # golden results. The testbench writes out the results file (output.dat)

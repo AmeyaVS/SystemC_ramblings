@@ -18,6 +18,7 @@ SC_MODULE(fir) {
 	sc_in< bool > outp_rdy;
 
 	void fir_main();
+	void tracing(sc_trace_file*);
 
 	SC_CTOR(fir) {
 		SC_CTHREAD(fir_main, clk.pos());
