@@ -2,9 +2,17 @@
 #define __TIMER_H
 
 #include <systemc.h>
+#include "defines.h"
 
-#define ADDR_WIDTH 8
-#define DATA_WIDTH 8
+// Bit positions for the Timer Control Register
+#define TMR_CNTRL_EN	0
+#define TMR_CNTRL_CMP	1
+#define TMR_CNTRL_OV	2
+
+// Bit positions for the Timer Interrupt Register
+#define TMR_INTR_CMP	0
+#define TMR_INTR_OV	1
+
 
 SC_MODULE(timer) {
 	/* Input Port Declaration */
@@ -26,11 +34,42 @@ SC_MODULE(timer) {
 	sc_uint<DATA_WIDTH> timer_cmp;
 	sc_uint<DATA_WIDTH> timer_intr_status;
 
-	void prc_timer(void);
+	const int base_addr;
 
-	SC_CTOR(timer) {
+	void prc_timer(void);
+#if 0
+	void prc_intr(void) {
+		intr0.write(timer_intr_status[TMR_INTR_CMP]);
+		intr1.write(timer_intr_status[TMR_INTR_OV]);
+	}
+#endif
+	void prc_bus_logic(void);
+
+	//SC_CTOR(timer) {
+	timer(sc_module_name name_, const int bAddr = 0) : sc_module(name_), base_addr(bAddr) {
 		SC_METHOD(prc_timer);
-		sensitive << clk.pos() << clk.neg();
+		sensitive << clk.pos() << clk.neg() << rst.neg();
+		//SC_METHOD(prc_intr);
+		//sensitive << timer_intr_status;//<< timer_intr_status[TMR_INTR_CMP] << timer_intr_status[TMR_INTR_OV];
+		SC_METHOD(prc_bus_logic);
+		sensitive << clk.pos() << clk.neg() << rst.neg();
+	}
+
+	SC_HAS_PROCESS(timer);
+
+	void tracing(sc_trace_file *wf) {
+		if(NULL != wf) {
+			const std::string str = this->name();
+			sc_trace(wf, this->clk, str + ".clk");
+			sc_trace(wf, this->rst, str + ".rst");
+			sc_trace(wf, this->addr, str + ".addr");
+			sc_trace(wf, this->data_in, str + ".data_in");
+			sc_trace(wf, this->read_en, str + ".read_en");
+			sc_trace(wf, this->write_en, str + ".write_en");
+			sc_trace(wf, this->intr0, str + ".intr0");
+			sc_trace(wf, this->intr1, str + ".intr1");
+			sc_trace(wf, this->data_out, str + ".data_out");
+		}
 	}
 
 };

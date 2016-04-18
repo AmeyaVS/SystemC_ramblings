@@ -1,6 +1,6 @@
 #include "memory.h"
 
-void memory::prc_memory() {
+void memory::prc_memory(void) {
 	sc_lv<BITWIDTH> tempData(SC_LOGIC_Z);
 	int tempAddr = 0;
 	if(enable.read() == 1) {
@@ -20,7 +20,7 @@ void memory::prc_memory() {
 	}
 }
 
-void memory::debugMemory() {
+void memory::debugMemory(void) {
 	FILE *fRam = fopen("data/memdump", "w");
 	if(fRam != NULL) {
 		for(int i = 0; i<MEMORYSIZE; ++i) {

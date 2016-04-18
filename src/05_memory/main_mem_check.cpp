@@ -6,7 +6,7 @@ int sc_main(int argc, char* argv[]) {
 
 	char str_vcd_file_name[100];
 	snprintf(str_vcd_file_name, 100, "%s", SC_TRACE_FILE);
-	sc_trace_file *wf = sc_create_vcd_trace_file("data/memory");
+	sc_trace_file *wf = sc_create_vcd_trace_file(str_vcd_file_name);
 	sc_trace(wf, mem.address, "address");
 	sc_trace(wf, mem.data, "data");
 	sc_trace(wf, mem.enable, "enable");
