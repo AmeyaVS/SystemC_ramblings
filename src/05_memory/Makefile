@@ -6,7 +6,7 @@ SRCS_CXX= memory.cpp main_mem_check.cpp
 
 OBJS_CXX= $(SRCS_CXX:.cpp=.o)
 
-PROJECT= 04_memorytest
+PROJECT= 05_memorytest
 
 SC_TRACE_FILE= data/memory
 

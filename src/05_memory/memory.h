@@ -3,14 +3,20 @@
 
 #include <systemc.h>
 
+#define DEBUG 0
+
 #define BITWIDTH 32
 /* Each memory location is 32 bit storage space so for:
  * 1MB = 1024KB = 1024*1024/4 Bytes*/
 #define MEMORYSIZE 1024*256
+/* ADDWIDTH should be around log2(MEMORYSIZE)
+ */
+#define ADDWIDTH 20
 
 SC_MODULE(memory) {
-	sc_inout < sc_lv<BITWIDTH> > data;
-	sc_in < sc_uint<BITWIDTH> > address;
+	sc_out < sc_uint<BITWIDTH> > data_out;
+	sc_in < sc_uint<BITWIDTH> > data_in;
+	sc_in < sc_uint<ADDWIDTH> > address;
 	sc_in < bool > rw;
 	sc_in < bool > enable;
 

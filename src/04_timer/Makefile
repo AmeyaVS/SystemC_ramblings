@@ -11,9 +11,9 @@ PROJECT= 04_timertest
 SC_TRACE_FILE= timer
 
 all: $(PROJECT)
-	#./$(PROJECT)
+	./$(PROJECT)
 	#@make cmp_result
-	#vcd_hier_manip $(SC_TRACE_FILE).vcd
+	vcd_hier_manip $(SC_TRACE_FILE).vcd
 
 $(PROJECT): $(OBJS_CXX)
 	$(CXX) $^ -L. -L$(SYSTEMC)/lib-$(TARGET_ARCH) -o $@ -lsystemc

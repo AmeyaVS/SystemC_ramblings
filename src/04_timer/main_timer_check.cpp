@@ -7,6 +7,7 @@ SC_MODULE(SYSTEM) {
 
 	sc_clock clk_sig;
 	sc_signal < bool > rst_sig;
+	sc_signal < bool > enable_sig;
 
 	sc_signal < bool > read_en_sig;
 	sc_signal < bool > write_en_sig;
@@ -27,6 +28,7 @@ SC_MODULE(SYSTEM) {
 		tb->rst(rst_sig);
 		tb->read_en(read_en_sig);
 		tb->write_en(write_en_sig);
+		tb->enable(enable_sig);
 		tb->addr(addr_sig);
 		tb->data_in(data_in_sig);
 		tb->intr0(intr0_sig);
@@ -43,6 +45,7 @@ SC_MODULE(SYSTEM) {
 		t->rst(rst_sig);
 		t->read_en(read_en_sig);
 		t->write_en(write_en_sig);
+		t->enable(enable_sig);
 		t->addr(addr_sig);
 		t->data_in(data_in_sig);
 		t->intr0(intr0_sig);
