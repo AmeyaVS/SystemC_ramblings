@@ -22,7 +22,7 @@ SC_MODULE(SYSTEM) {
 
 	sc_trace_file *wf;
 
-	SC_CTOR(SYSTEM) : clk_sig("clk_sig", 10, SC_NS) {
+	SC_CTOR(SYSTEM) : clk_sig("clk_sig", 20, SC_NS) {
 		tb = new timer_tb("tb");
 		tb->clk(clk_sig);
 		tb->rst(rst_sig);
@@ -40,7 +40,8 @@ SC_MODULE(SYSTEM) {
 		wf = sc_create_vcd_trace_file(str_vcd_file_name);
 
 		t = new timer("t");
-		//t->clk(clk_sig);		
+		//t->clk(clk_sig);
+		//t->enableDebug();
 		t->clk(clk_sig);
 		t->rst(rst_sig);
 		t->read_en(read_en_sig);
@@ -64,6 +65,7 @@ SC_MODULE(SYSTEM) {
 
 int sc_main(int argc, char *argv[]) {
 
+	sc_set_time_resolution(1, SC_NS);
 	SYSTEM *top = NULL;
 	top = new SYSTEM("top");
 	sc_start();

@@ -20,9 +20,14 @@ SC_MODULE(timer_tb) {
 	sc_in < sc_uint<DATA_WIDTH> > data_out;
 
 	//const int base_addr;
+	int debug;
 
 	void source(void);
-	void sink(void);
+	void sink0(void);
+	void sink1(void);
+	void enableDebug() { debug = 1;}
+	void disableDebug() { debug = 0;}
+
 
 	SC_CTOR(timer_tb) {
 	//timer_tb(sc_module_name name_, const int bAddr = 0) : sc_module(name_), base_addr(bAddr) {
@@ -30,8 +35,11 @@ SC_MODULE(timer_tb) {
 		//SC_CTHREAD(sink, clk.pos()||clk.neg());
 		SC_THREAD(source);
 		sensitive << clk.pos() << clk.neg(); // << intr0 << intr1;
-		//SC_THREAD(sink);
-		//sensitive << intr0 << intr1;
+		SC_THREAD(sink0);
+		sensitive << intr0.pos();
+		SC_THREAD(sink1);
+		sensitive << intr1.pos();
+		debug = 0;
 	}
 
 	//SC_HAS_PROCESS(timer_tb);

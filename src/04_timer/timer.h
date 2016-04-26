@@ -44,6 +44,7 @@ SC_MODULE(timer) {
 		//sensitive << timer_intr_status;//<< timer_intr_status[TMR_INTR_CMP] << timer_intr_status[TMR_INTR_OV];
 		SC_METHOD(prc_bus_logic);
 		sensitive << clk.pos() << clk.neg() << rst.neg();
+		//debug = 0;
 	}
 
 	//SC_HAS_PROCESS(timer);

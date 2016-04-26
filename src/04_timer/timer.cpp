@@ -2,8 +2,8 @@
 
 void timer::prc_timer(void) {
 	if(0 == rst) {
-		intr0.write(0);
-		intr1.write(0);
+		//intr0.write(0);
+		//intr1.write(0);
 		//data_out.write(0);
 
 		timer_cntrl = 0;
@@ -12,21 +12,33 @@ void timer::prc_timer(void) {
 		timer_intr_status = 0;
 	} else {
 		if(1 == timer_cntrl[TMR_CNTRL_EN]) { // If timer is enabled
-			if(1 == timer_cntrl[TMR_CNTRL_CMP]) {
-				if( timer_val == timer_cmp) {
-					timer_intr_status[TMR_INTR_CMP] = 1;
-				}
-			}
 			if(1 == timer_cntrl[TMR_CNTRL_OV]) {
 				if(timer_val == MAX) {
 					timer_intr_status[TMR_INTR_OV] = 1;
+#if 0
+					if(this->debug) {
+						cout << "Interrupt asserted: Intr1 ( " << sc_time_stamp() << " )" << endl;
+					}
+#endif
 				}
 			}
+
 			timer_val = timer_val + 1;
-			intr0.write(timer_intr_status[TMR_INTR_CMP]);
-			intr1.write(timer_intr_status[TMR_INTR_OV]);
+			if(1 == timer_cntrl[TMR_CNTRL_CMP]) {
+				if( timer_val == timer_cmp) {
+					timer_intr_status[TMR_INTR_CMP] = 1;
+#if 0
+					if(this->debug) {
+						cout << "Interrupt asserted: Intr0 ( " << sc_time_stamp() << " )" << endl;
+					}
+#endif
+				}
+			}
+
 		}
 	}
+	intr0.write(timer_intr_status[TMR_INTR_CMP]);
+	intr1.write(timer_intr_status[TMR_INTR_OV]);
 }
 
 void timer::prc_bus_logic(void) {

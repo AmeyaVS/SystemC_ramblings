@@ -1,0 +1,23 @@
+ameya@ubuntu:~/04_timer$ time ./04_timertest 
+
+        SystemC 2.3.1-Accellera --- Apr  3 2016 12:42:00
+        Copyright (c) 1996-2014 by all Contributors,
+        ALL RIGHTS RESERVED
+
+Info: (I702) default timescale unit used for tracing: 1 ns (timer.vcd)
+Interrupt asserted: Intr0 ( 1020 ns )
+Interrupt asserted: Intr1 ( 2580 ns )
+@18470 ns Timer Val: 51
+@19990 ns Timer Val: 203
+@20500 ns Timer Val: 204
+@29990 ns Timer Val: 78
+@1000750 ns Timer Val: 130
+@1010 us
+@100 ms
+
+Info: /OSCI/SystemC: Simulation stopped by user.
+
+real	0m17.650s
+user	0m12.616s
+sys	0m1.239s
+
