@@ -37,7 +37,7 @@ void tb::sink() {
 	sc_int<16> indata;
 
 	// Extract clock period
-	sc_clock *clk_p = DCAST<sc_clock*>(clk.get_interface());
+	sc_clock *clk_p = dynamic_cast<sc_clock*>(clk.get_interface());
 	clock_period = clk_p->period();
 
 	// Opening simulation results file

@@ -1,3 +1,5 @@
+http://accellera.org/images/downloads/standards/systemc/systemc-2.3.2.tar.gz
+http://accellera.org/images/downloads/standards/systemc/systemc-regressions-2.3.2.tar.gz
 http://www.accellera.org/images/downloads/standards/systemc/systemc-2.3.1.tgz
 http://www.accellera.org/images/downloads/standards/systemc/systemc_regressions-2.3.1.tgz
 http://www.accellera.org/images/downloads/standards/systemc/SystemC_AMS_2_0_LRM.pdf

@@ -1,19 +1,24 @@
 #!/bin/bash
 
+FILE_PREFIX="systemc"
+FILE_VERSION="2.3.2"
+
+DIRECTORY_NAME="$FILE_PREFIX-$FILE_VERSION"
+
 # This script will download the SystemC library from Accelera website and configure the build and build it for you.
 echo "======================================================"
 echo "Downloading the SystemC library from accellera website"
 echo "======================================================"
-wget -c http://www.accellera.org/images/downloads/standards/systemc/systemc-2.3.1.tgz
+wget -c http://accellera.org/images/downloads/standards/systemc/$DIRECTORY_NAME.tar.gz
 
 echo "======================================================"
 echo "Extracting the SystemC source code"
 echo "======================================================"
-tar xf systemc-2.3.1.tgz
+tar xf $DIRECTORY_NAME.tar.gz
 
 pd=$PWD
 
-cd systemc-2.3.1
+cd $DIRECTORY_NAME
 
 echo "======================================================"
 echo "Creating build directory"
@@ -27,15 +32,22 @@ fi
 cd objdir
 
 # Create Installation Directory
-SYSTEMC=$HOME/systemcInstall
-mkdir -p $HOME/systemcInstall
+SYSTEMC_HOME=$HOME/apps/$DIRECTORY_NAME
+mkdir -p $HOME/apps/$DIRECTORY_NAME
 
 # Configure the SystemC library
 echo "============================================================================"
 echo "Configuring the SystemC library"
-echo "SystemC library will be installed in $SYSTEMC"
+echo "SystemC library will be installed in $SYSTEMC_HOME"
 echo "============================================================================"
-../configure --prefix=$HOME/systemcInstall
+#../configure --prefix=$SYSTEMC_HOME --enable-debug
+# Using CMake for much better integration and portability accross system with
+# different OS's.
+cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo    \
+      -DCMAKE_EXPORT_COMPILE_COMMANDS=ON   \
+      -DCMAKE_INSTALL_PREFIX=$SYSTEMC_HOME \
+      -DCMAKE_CXX_STANDARD=11              \
+      ..
 
 # Find the Number of CPUS to utilize all the cores to build the SystemC llibrary
 CPUS=`nproc`
@@ -53,7 +65,7 @@ make -j $CPUS
 echo "==========================================================="
 echo "Checking the Built library by building examples application"
 echo "==========================================================="
-make check
+make check -j $CPUS
 
 # Do the Installation
 echo "======================================================"
@@ -67,22 +79,13 @@ echo "==========================================================================
 echo "Please Add the contents of this SystemC.config to the end of your .bashrc file located in your $HOME folder"
 echo "====================================================================================================================================================="
 
-echo "export SYSTEMC=$SYSTEMC" > SystemC.config
-echo "export SYSTEMC_HOME=\$SYSTEMC" >> SystemC.config
+echo "export SYSTEMC_HOME=$SYSTEMC_HOME" > SystemC.config
 MACHINE_TYPE=`uname -m`
 if [ ${MACHINE_TYPE} = "x86_64" ]; then
-	echo "export TARGET_ARCH=linux64" >> SystemC.config
+	echo "export LD_LIBRARY_PATH=${LD_LIBRARY_PATH:+$LD_LIBRARY_PATH:}\$SYSTEMC_HOME/lib-linux64:\$SYSTEMC_HOME/lib" >> SystemC.config
 else
-	echo "export TARGET_ARCH=linux" >> SystemC.config
+	echo "export LD_LIBRARY_PATH=${LD_LIBRARY_PATH:+$LD_LIBRARY_PATH:}\$SYSTEMC_HOME/lib-linux:\$SYSTEMC_HOME/lib" >> SystemC.config
 fi
-
-#if [ ${LD_LIBRARY_PATH} == "" ]; then
-#	echo "export LD_LIBRARY_PATH=\$SYSTEMC/lib-\$TARGET_ARCH" >> SystemC.config
-#else
-#	echo "export LD_LIBRARY_PATH=\$LD_LIBRARY_PATH:\$SYSTEMC/lib-\$TARGET_ARCH" >> SystemC.config
-#fi
-
-echo "export LD_LIBRARY_PATH=${LD_LIBRARY_PATH:+$LD_LIBRARY_PATH:}\$SYSTEMC/lib-\$TARGET_ARCH" >> SystemC.config
 
 echo "======================================================"
 echo "Build and Installation finished"

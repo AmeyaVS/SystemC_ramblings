@@ -20,6 +20,8 @@ SC_MODULE(SYSTEM) {
 	sc_signal< bool > outp_sig_rdy;
 
 	sc_clock clk_sig;
+
+	sc_trace_file *tf;
 	
 	SC_CTOR(SYSTEM) :clk_sig("clk_sig", 10, SC_NS) {
 		// Module instance signal connections
@@ -34,6 +36,8 @@ SC_MODULE(SYSTEM) {
 		tb0->outp_vld(outp_sig_vld);
 		tb0->outp_rdy(outp_sig_rdy);
 
+		tf = sc_create_vcd_trace_file(SC_TRACE_FILE);
+
 		fir0 = new fir("fib0");
 		fir0->clk(clk_sig);
 		fir0->rst(rst_sig);
@@ -44,10 +48,13 @@ SC_MODULE(SYSTEM) {
 		fir0->inp_rdy(inp_sig_rdy);
 		fir0->outp_vld(outp_sig_vld);
 		fir0->outp_rdy(outp_sig_rdy);
+
+		fir0->tracing(tf);
 	}
 
 	~SYSTEM() {
 		// Destructor for removing simulations modules
+		sc_close_vcd_trace_file(tf);
 		delete fir0;
 		delete tb0;
 	}

@@ -2,17 +2,17 @@ CXX= g++
 
 CXX_FLAGS= -c -g -Wall -I. -I$(SYSTEMC)/include
 
-SRCS_CXX= fir.cpp tb.cpp firsytemmain.cpp
+SRCS_CXX= timer.cpp timer_tb.cpp main_timer_check.cpp
 
 OBJS_CXX= $(SRCS_CXX:.cpp=.o)
 
-PROJECT= 03_firtest
+PROJECT= 04_timertest
 
-SC_TRACE_FILE= fir
+SC_TRACE_FILE= timer
 
 all: $(PROJECT)
 	./$(PROJECT)
-	@make cmp_result
+	#@make cmp_result
 	vcd_hier_manip $(SC_TRACE_FILE).vcd
 
 $(PROJECT): $(OBJS_CXX)

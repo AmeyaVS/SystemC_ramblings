@@ -2,18 +2,18 @@ CXX= g++
 
 CXX_FLAGS= -c -g -Wall -I. -I$(SYSTEMC)/include
 
-SRCS_CXX= fir.cpp tb.cpp firsytemmain.cpp
+SRCS_CXX= memory.cpp main_mem_check.cpp
 
 OBJS_CXX= $(SRCS_CXX:.cpp=.o)
 
-PROJECT= 03_firtest
+PROJECT= 05_memorytest
 
-SC_TRACE_FILE= fir
+SC_TRACE_FILE= data/memory
 
 all: $(PROJECT)
 	./$(PROJECT)
-	@make cmp_result
-	vcd_hier_manip $(SC_TRACE_FILE).vcd
+	#@make cmp_result
+	#vcd_hier_manip $(SC_TRACE_FILE).vcd
 
 $(PROJECT): $(OBJS_CXX)
 	$(CXX) $^ -L. -L$(SYSTEMC)/lib-$(TARGET_ARCH) -o $@ -lsystemc
@@ -22,7 +22,7 @@ $(PROJECT): $(OBJS_CXX)
 	$(CXX) $(CXX_FLAGS) -DSC_TRACE_FILE=\"$(SC_TRACE_FILE)\" $< -o $@
 
 clean:
-	$(RM) $(OBJS_CXX) $(PROJECT) *.dat *.vcd
+	$(RM) $(OBJS_CXX) $(PROJECT) *.dat *.vcd $(SC_TRACE_FILE).vcd data/memdump
 
 # The cmp_result target compares the simulation results with the
 # golden results. The testbench writes out the results file (output.dat)
