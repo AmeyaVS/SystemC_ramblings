@@ -1,7 +1,7 @@
 # Check cmake minimum versio required
 cmake_minimum_required(VERSION 3.5)
 
-project(SystemC_reamblings)
+project(SystemC_ramblings)
 
 add_subdirectory(01_SystemCTest)
 add_subdirectory(02_adder)
