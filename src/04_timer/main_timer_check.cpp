@@ -68,7 +68,7 @@ int sc_main(int argc, char *argv[]) {
 	sc_set_time_resolution(1, SC_NS);
 	SYSTEM *top = NULL;
 	top = new SYSTEM("top");
-	sc_start();
+	sc_start(100, sc_core::SC_NS);
 
 	delete top;
 	return 0;

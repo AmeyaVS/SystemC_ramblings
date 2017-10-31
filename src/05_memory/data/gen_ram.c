@@ -4,13 +4,15 @@
  */
 
 #include <stdio.h>
+#include <time.h>
+#include <stdlib.h>
 
-int main() {
+int main(int argc, char** argv) {
 	int i;
 	int T=100;
 	FILE *fo = fopen("ram_init", "w"); // Open file for writing.
 	if(NULL != fo) {
-		scanf("%d", &T);
+		sscanf(argv[1], "%d", &T);
 		srand(time(NULL)); // This seeds the random number generator.
 		for(i = 0; i < T; ++i) {
 			fprintf(fo, "%08X\n", rand()); // generates the random number in the file.
