@@ -1,0 +1,11 @@
+# Package Init
+@PACKAGE_INIT@
+
+# used for including any other dependent project.
+include (CMakeFindDependencyMacro)
+
+# Include the file which contains the list of exported targets.
+include ("${CMAKE_CURRENT_LIST_DIR}/@PROJECT_NAME@Targets.cmake")
+
+# Check for the necessary components.
+check_required_components (@PROJECT_NAME@)
