@@ -96,7 +96,7 @@ stepTry make -j $CPUS
 echo "==========================================================="
 echo "Checking the Built library by building examples application"
 echo "==========================================================="
-stepTry make check
+stepTry make check -j $CPUS
 
 # Do the Installation
 echo "======================================================"
