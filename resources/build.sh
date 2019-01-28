@@ -40,7 +40,7 @@ fi
 
 pd=$PWD
 
-steptry cd $SRC_DIR
+stepTry cd $SRC_DIR
 
 echo "======================================================"
 echo "Creating build directory"
@@ -75,6 +75,7 @@ stepTry cmake -DCMAKE_BUILD_TYPE=$BUILD_TYPE     \
               -DCMAKE_CXX_EXTENSIONS=OFF         \
               -DCMAKE_EXPORT_COMPILE_COMMANDS=ON \
               -DBUILD_SOURCE_DOCUMENTATION=ON    \
+	      -DENABLE_PHASE_CALLBACKS=ON        \
               ..
 #../configure --prefix=$SYSTEMC $CONFIG_PARAMETER
 
