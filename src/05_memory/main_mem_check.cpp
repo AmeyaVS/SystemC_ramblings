@@ -1,28 +1,28 @@
 #include "memory.h"
 
 int sc_main(int argc, char* argv[]) {
-	memory mem("memory");
+	memory *mem = new memory("memory");
 	sc_set_time_resolution(1, SC_PS);
 
 	char str_vcd_file_name[100];
 	snprintf(str_vcd_file_name, 100, "%s", SC_TRACE_FILE);
 	sc_trace_file *wf = sc_create_vcd_trace_file(str_vcd_file_name);
-	sc_trace(wf, mem.address, "address");
-	sc_trace(wf, mem.data_in, "data_in");
-	sc_trace(wf, mem.data_out, "data_out");
-	sc_trace(wf, mem.enable, "enable");
-	sc_trace(wf, mem.rw, "rw");
+	sc_trace(wf, (*mem).address, "address");
+	sc_trace(wf, (*mem).data_in, "data_in");
+	sc_trace(wf, (*mem).data_out, "data_out");
+	sc_trace(wf, (*mem).enable, "enable");
+	sc_trace(wf, (*mem).rw, "rw");
 
 	sc_signal < bool >  enable, rw;
 	sc_signal < sc_uint<BITWIDTH> > data_in;
 	sc_signal < sc_uint<BITWIDTH> > data_out;
 	sc_signal< sc_uint<ADDWIDTH> > address;
 
-	mem.rw(rw);
-	mem.data_in(data_in);
-	mem.data_out(data_out);
-	mem.address(address);
-	mem.enable(enable);
+	(*mem).rw(rw);
+	(*mem).data_in(data_in);
+	(*mem).data_out(data_out);
+	(*mem).address(address);
+	(*mem).enable(enable);
 
 	enable  = 0;
 	data_in = 0;
@@ -70,8 +70,9 @@ int sc_main(int argc, char* argv[]) {
 
 	sc_start(5, SC_PS);
 
-	mem.debugMemory();
+	(*mem).debugMemory();
 	sc_close_vcd_trace_file(wf);
 
+	delete mem;
 	return(0);
 }
