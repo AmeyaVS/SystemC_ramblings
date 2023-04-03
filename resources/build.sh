@@ -11,6 +11,7 @@ function stepTry {
   local step_status=$?
   if [ $step_status -ne 0 ]; then
     echo "Error: $1" >&2
+    exit $step_status
   fi
   return $step_status
 }
@@ -40,7 +41,7 @@ fi
 
 pd=$PWD
 
-steptry cd $SRC_DIR
+stepTry cd $SRC_DIR
 
 echo "======================================================"
 echo "Creating build directory"
@@ -71,10 +72,11 @@ echo "==========================================================================
 #fi
 stepTry cmake -DCMAKE_BUILD_TYPE=$BUILD_TYPE     \
               -DCMAKE_INSTALL_PREFIX=$SYSTEMC    \
-              -DCMAKE_CXX_STANDARD=11            \
+              -DCMAKE_CXX_STANDARD=17            \
               -DCMAKE_CXX_EXTENSIONS=OFF         \
               -DCMAKE_EXPORT_COMPILE_COMMANDS=ON \
               -DBUILD_SOURCE_DOCUMENTATION=ON    \
+              -DENABLE_PHASE_CALLBACKS=ON        \
               ..
 #../configure --prefix=$SYSTEMC $CONFIG_PARAMETER
 
@@ -88,14 +90,14 @@ echo "======================================================"
 echo "======================================================"
 echo "Building the SystemC library"
 echo "======================================================"
-stepTry make clean
+#stepTry make clean
 stepTry make -j $CPUS
 
 # Check the build SystemC library
 echo "==========================================================="
 echo "Checking the Built library by building examples application"
 echo "==========================================================="
-stepTry make check
+stepTry make check -j $CPUS
 
 # Do the Installation
 echo "======================================================"
