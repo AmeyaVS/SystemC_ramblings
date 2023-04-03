@@ -19,6 +19,7 @@ find_package (SystemCLanguage CONFIG REQUIRED)
 
 # Export CXX Compilation Commands.
 set (CMAKE_EXPORT_COMPILE_COMMANDS ON)
+set (CMAKE_CXX_EXTENSIONS OFF)
 
 # Documentation Option
 option (BUILD_DOC "Build Documentation" OFF)
@@ -31,6 +32,7 @@ message (STATUS "Build Shared Library: ${BUILD_SHARED_LIBS}")
 # Add the library target
 add_library (
   ${PROJECT_NAME} # Add the library target.
+  SHARED
   src/full_adder.cpp
   src/half_adder.cpp
   )

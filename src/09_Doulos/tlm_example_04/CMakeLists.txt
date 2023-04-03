@@ -10,6 +10,7 @@ set(CMAKE_PREFIX_PATH $ENV{SYSTEMC_HOME})
 find_package(SystemCLanguage CONFIG REQUIRED)
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
 
 source_group("Sources" FILES
   testbench.cpp
