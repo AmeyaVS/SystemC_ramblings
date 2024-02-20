@@ -2,8 +2,8 @@
 #define INITIATOR2_H
 
 #include "utilities.h"
-#include "tlm_utils/simple_initiator_socket.h"
-#include "tlm_utils/tlm_quantumkeeper.h"
+#include <tlm_utils/simple_initiator_socket.h>
+#include <tlm_utils/tlm_quantumkeeper.h>
 
 // *****************************************************************************************
 // Initiator2 reads from all 4 memories, but does not use DMI or debug transport

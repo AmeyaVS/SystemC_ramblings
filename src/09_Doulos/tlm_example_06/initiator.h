@@ -2,8 +2,8 @@
 #define INITIATOR_H
 
 #include "utilities.h"
-#include "tlm_utils/simple_initiator_socket.h"
-#include "tlm_utils/peq_with_cb_and_phase.h"
+#include <tlm_utils/simple_initiator_socket.h>
+#include <tlm_utils/peq_with_cb_and_phase.h>
 
 
 // **************************************************************************************

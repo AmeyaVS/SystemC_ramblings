@@ -2,12 +2,12 @@
 #define UTILITIES_H
 
 #include <fstream>
-#include "systemc"
+#include <systemc>
 using namespace sc_core;
 using namespace sc_dt;
 using namespace std;
 
-#include "tlm.h"
+#include <tlm>
 
 static std::ofstream fout("output.txt");
 

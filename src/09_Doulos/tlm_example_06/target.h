@@ -2,7 +2,7 @@
 #define TARGET_H
 
 #include "utilities.h"
-#include "tlm_utils/simple_target_socket.h"
+#include <tlm_utils/simple_target_socket.h>
 #include <queue>
 
 // **************************************************************************************

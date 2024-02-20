@@ -1,12 +1,12 @@
 #ifndef UTILITIES_H
 #define UTILITIES_H
 
-#include "systemc"
+#include <systemc>
 using namespace sc_core;
 using namespace sc_dt;
 using namespace std;
 
-#include "tlm.h"
+#include <tlm>
 
 // **************************************************************************************
 // User-defined memory manager, which maintains a pool of transactions
