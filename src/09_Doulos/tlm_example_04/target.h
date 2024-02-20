@@ -6,6 +6,7 @@
 
 #include "utilities.h"
 #include <tlm_utils/simple_target_socket.h>
+#include <tlm_utils/peq_with_cb_and_phase.h>
 
 
 // **************************************************************************************
@@ -25,7 +26,7 @@ struct Target: sc_module
   , response_in_progress(false)
   , next_response_pending(0)
   , end_req_pending(0)
-  , m_peq(this, &Target::peq_cb)
+  , m_peq("m_peq", this, &Target::peq_cb)
   {
     // Register callbacks for incoming interface method calls
     socket.register_nb_transport_fw(this, &Target::nb_transport_fw);
@@ -213,6 +214,8 @@ struct Target: sc_module
   tlm::tlm_generic_payload*  next_response_pending;
   tlm::tlm_generic_payload*  end_req_pending;
   tlm_utils::peq_with_cb_and_phase<Target> m_peq;
+
+  virtual ~Target() noexcept = default;
 };
 
 #endif

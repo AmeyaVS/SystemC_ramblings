@@ -29,3 +29,8 @@
 
 # do not add temp backup files
 *~
+
+# Ignore Build Directory, VSCode Configurations, and Generated Artifacts
+**/build/**
+.vscode/
+src/05_memory/data/ram_init
